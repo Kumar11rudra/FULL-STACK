@@ -1,9 +1,7 @@
 .app{
 
 min-height:100vh;
-
 background:#f4f6f9;
-
 padding:30px;
 
 }
@@ -11,23 +9,88 @@ padding:30px;
 .header{
 
 text-align:center;
-
 margin-bottom:30px;
 
 }
 
-.header h1{
+.editor{
 
-color:#1f2937;
-
-margin-bottom:10px;
+max-width:700px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
 
 }
 
-.header p{
+.editor textarea{
 
-font-size:18px;
+width:100%;
+height:180px;
+padding:12px;
+font-size:16px;
+margin-bottom:15px;
 
-color:#555;
+}
+
+.editor button{
+
+background:#2563eb;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:6px;
+
+}
+
+.draft-list{
+
+max-width:700px;
+margin:30px auto;
+
+}
+
+.draft-card{
+
+background:white;
+padding:20px;
+margin-bottom:15px;
+border-radius:10px;
+box-shadow:0 4px 8px rgba(0,0,0,.08);
+
+}
+
+.actions{
+
+margin-top:15px;
+
+}
+
+.actions button{
+
+padding:8px 16px;
+margin-right:10px;
+border:none;
+border-radius:5px;
+background:#16a34a;
+color:white;
+
+}
+
+.actions .delete{
+
+background:#dc2626;
+
+}
+
+@media(max-width:768px){
+
+.editor,
+.draft-list{
+
+width:100%;
+
+}
 
 }
