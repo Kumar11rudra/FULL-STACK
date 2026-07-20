@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 1.2 - Draft Management</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Draft Management System</h1>
+
+<textarea
+id="draftText"
+placeholder="Write your draft here..."
+></textarea>
+
+<div class="buttons">
+
+<button onclick="saveDraft()">Save Draft</button>
+
+<button onclick="updateDraft()">Update Draft</button>
+
+</div>
+
+<p id="status"></p>
+
+<h2>Saved Drafts</h2>
+
+<div id="draftList"></div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
