@@ -5,13 +5,11 @@ import "./App.css";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 
-import {
-  getToken,
-  removeToken
-} from "./utils/auth";
+import { getToken, removeToken } from "./utils/auth";
 
 import {
-  decodeToken
+  decodeToken,
+  isTokenExpired,
 } from "./utils/jwt";
 
 function App() {
@@ -22,15 +20,21 @@ function App() {
 
     const token = getToken();
 
-    if (token) {
+    if (!token) return;
 
-      const decodedUser = decodeToken(token);
+    if (isTokenExpired(token)) {
 
-      if (decodedUser) {
+      removeToken();
 
-        setUser(decodedUser);
+      return;
 
-      }
+    }
+
+    const decoded = decodeToken(token);
+
+    if (decoded) {
+
+      setUser(decoded);
 
     }
 
@@ -53,19 +57,14 @@ function App() {
         user ? (
 
           <Dashboard
-
             user={user}
-
             onLogout={handleLogout}
-
           />
 
         ) : (
 
           <Login
-
             onLogin={setUser}
-
           />
 
         )
