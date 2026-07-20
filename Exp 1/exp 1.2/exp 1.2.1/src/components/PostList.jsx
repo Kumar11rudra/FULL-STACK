@@ -1,9 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { deletePost } from "../features/posts/postSlice";
+import { useSelector } from "react-redux";
+import PostItem from "./PostItem";
 
-const PostList = () => {
-
-  const dispatch = useDispatch();
+const PostList = ({ setEditingPost }) => {
 
   const posts = useSelector(
     (state) => state.posts.posts
@@ -25,31 +23,11 @@ const PostList = () => {
 
           posts.map((post) => (
 
-            <div
+            <PostItem
               key={post.id}
-              className="post-card"
-            >
-
-              <h3>{post.title}</h3>
-
-              <p>
-
-                Platform: {post.platform}
-
-              </p>
-
-              <button
-                className="delete-btn"
-                onClick={() =>
-                  dispatch(deletePost(post.id))
-                }
-              >
-
-                Delete
-
-              </button>
-
-            </div>
+              post={post}
+              setEditingPost={setEditingPost}
+            />
 
           ))
 
