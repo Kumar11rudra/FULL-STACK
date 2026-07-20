@@ -1,46 +1,54 @@
-.app{
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#eef2f7;
+}
+
+.app{
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#f3f4f6;
 padding:20px;
-
+background:#f3f4f6;
 }
 
 .card{
-
 width:100%;
-max-width:420px;
+max-width:450px;
 background:#ffffff;
 padding:30px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,.1);
-
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.1);
 }
 
 .card h2{
-
 text-align:center;
 margin-bottom:20px;
 color:#1f2937;
+}
 
+.card h3{
+text-align:center;
+margin-bottom:10px;
+color:#2563eb;
 }
 
 input{
-
 width:100%;
 padding:12px;
 margin-bottom:15px;
 border:1px solid #d1d5db;
 border-radius:6px;
 font-size:16px;
-
 }
 
 button{
-
 width:100%;
 padding:12px;
 border:none;
@@ -49,43 +57,50 @@ background:#2563eb;
 color:#ffffff;
 font-size:16px;
 cursor:pointer;
-
+transition:.3s;
 }
 
 button:hover{
-
 background:#1d4ed8;
-
 }
 
 .dashboard{
-
 text-align:center;
-
-}
-
-.dashboard h2{
-
-margin-bottom:15px;
-
 }
 
 .dashboard p{
-
-margin:10px 0;
+margin:12px 0;
 font-size:17px;
-
 }
 
 .logout{
-
 margin-top:20px;
 background:#dc2626;
-
 }
 
 .logout:hover{
-
 background:#b91c1c;
+}
+
+hr{
+margin-top:10px;
+margin-bottom:15px;
+border:none;
+border-top:1px solid #d1d5db;
+}
+
+@media(max-width:600px){
+
+.card{
+
+padding:20px;
+
+}
+
+.card h2{
+
+font-size:24px;
+
+}
 
 }
