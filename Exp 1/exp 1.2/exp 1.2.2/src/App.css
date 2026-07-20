@@ -1,0 +1,29 @@
+.app{
+
+min-height:100vh;
+background:#f3f4f6;
+padding:30px;
+
+}
+
+.header{
+
+text-align:center;
+margin-bottom:30px;
+
+}
+
+.header h1{
+
+font-size:32px;
+color:#1f2937;
+margin-bottom:10px;
+
+}
+
+.header p{
+
+font-size:18px;
+color:#6b7280;
+
+}
