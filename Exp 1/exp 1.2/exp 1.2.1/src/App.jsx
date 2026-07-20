@@ -1,9 +1,13 @@
+import { useState } from "react";
+
 import "./App.css";
 
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 
 function App() {
+
+  const [editingPost, setEditingPost] = useState(null);
 
   return (
 
@@ -13,17 +17,18 @@ function App() {
 
         <h1>Redux Toolkit State Management</h1>
 
-        <p>
-
-          Experiment 1.2.1
-
-        </p>
+        <p>Experiment 1.2.1</p>
 
       </header>
 
-      <PostForm />
+      <PostForm
+        editingPost={editingPost}
+        setEditingPost={setEditingPost}
+      />
 
-      <PostList />
+      <PostList
+        setEditingPost={setEditingPost}
+      />
 
     </div>
 
