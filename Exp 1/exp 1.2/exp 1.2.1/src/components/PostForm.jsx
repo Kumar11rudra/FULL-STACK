@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { addPost } from "../features/posts/postSlice";
+import {
+  addPost,
+  updatePost,
+} from "../features/posts/postSlice";
 
-const PostForm = () => {
+const PostForm = ({ editingPost, setEditingPost }) => {
 
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
   const [platform, setPlatform] = useState("Facebook");
+
+  useEffect(() => {
+
+    if (editingPost) {
+
+      setTitle(editingPost.title);
+      setPlatform(editingPost.platform);
+
+    }
+
+  }, [editingPost]);
 
   const handleSubmit = (e) => {
 
@@ -22,12 +36,28 @@ const PostForm = () => {
 
     }
 
-    dispatch(
-      addPost({
-        title,
-        platform,
-      })
-    );
+    if (editingPost) {
+
+      dispatch(
+        updatePost({
+          id: editingPost.id,
+          title,
+          platform,
+        })
+      );
+
+      setEditingPost(null);
+
+    } else {
+
+      dispatch(
+        addPost({
+          title,
+          platform,
+        })
+      );
+
+    }
 
     setTitle("");
     setPlatform("Facebook");
@@ -57,7 +87,7 @@ const PostForm = () => {
 
       <button type="submit">
 
-        Add Post
+        {editingPost ? "Update Post" : "Add Post"}
 
       </button>
 
