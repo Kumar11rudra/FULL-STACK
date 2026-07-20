@@ -1,0 +1,74 @@
+.app{
+
+min-height:100vh;
+
+}
+
+.navbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+background:#2563eb;
+color:#fff;
+
+}
+
+.nav-links{
+
+display:flex;
+gap:15px;
+
+}
+
+.nav-links a{
+
+text-decoration:none;
+color:#fff;
+font-weight:bold;
+
+}
+
+.page{
+
+max-width:800px;
+margin:40px auto;
+padding:30px;
+background:#fff;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+text-align:center;
+
+}
+
+.login-box{
+
+max-width:400px;
+margin:40px auto;
+padding:30px;
+background:#fff;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,.1);
+
+}
+
+.login-box select,
+.login-box button{
+
+width:100%;
+padding:12px;
+margin-top:15px;
+
+}
+
+.logout-btn{
+
+background:#dc2626;
+color:#fff;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+
+}
