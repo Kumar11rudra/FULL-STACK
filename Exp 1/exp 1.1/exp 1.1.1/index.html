@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 1.1 - Dynamic Post Composer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>Dynamic Social Media Post Composer</h1>
+
+<label><b>Select Platform(s)</b></label>
+
+<div class="platforms">
+
+<label>
+<input type="checkbox" value="Twitter" class="platform">
+Twitter (280)
+</label>
+
+<label>
+<input type="checkbox" value="Facebook" class="platform">
+Facebook (5000)
+</label>
+
+<label>
+<input type="checkbox" value="Instagram" class="platform">
+Instagram (2200)
+</label>
+
+<label>
+<input type="checkbox" value="LinkedIn" class="platform">
+LinkedIn (3000)
+</label>
+
+</div>
+
+<label><b>Write Your Post</b></label>
+
+<textarea
+id="post"
+placeholder="Write something..."
+></textarea>
+
+<div class="counter">
+
+Characters :
+<span id="count">0</span>
+
+</div>
+
+<label><b>Attach Media</b></label>
+
+<input
+type="file"
+id="media"
+>
+
+<p id="filename"></p>
+
+<div id="message"></div>
+
+<button id="publishBtn">
+Publish Post
+</button>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
