@@ -1,15 +1,23 @@
 import "./App.css";
 
+import { useEffect, useState } from "react";
+
 import DraftEditor from "./components/DraftEditor";
 import DraftList from "./components/DraftList";
 
-import { useState } from "react";
+import { getDrafts } from "./utils/localStorage";
 
 function App() {
 
   const [drafts, setDrafts] = useState([]);
 
   const [editingDraft, setEditingDraft] = useState(null);
+
+  useEffect(() => {
+
+    setDrafts(getDrafts());
+
+  }, []);
 
   return (
 
@@ -20,7 +28,9 @@ function App() {
         <h1>Draft Management System</h1>
 
         <p>
-          Experiment 1.1.2 - Save, Edit & Manage Drafts
+
+          Experiment 1.1.2
+
         </p>
 
       </header>
@@ -28,9 +38,11 @@ function App() {
       <DraftEditor
 
         drafts={drafts}
+
         setDrafts={setDrafts}
 
         editingDraft={editingDraft}
+
         setEditingDraft={setEditingDraft}
 
       />
@@ -38,6 +50,7 @@ function App() {
       <DraftList
 
         drafts={drafts}
+
         setDrafts={setDrafts}
 
         setEditingDraft={setEditingDraft}
