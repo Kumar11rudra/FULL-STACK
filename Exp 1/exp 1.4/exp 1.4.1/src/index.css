@@ -1,0 +1,39 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#eef2f7;
+}
+
+#root{
+    min-height:100vh;
+}
+
+button{
+    cursor:pointer;
+    transition:.3s;
+}
+
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+@media(max-width:768px){
+
+    .header h1{
+        font-size:24px;
+    }
+
+    .fc-toolbar{
+        display:flex !important;
+        flex-direction:column;
+        gap:12px;
+    }
+
+}
