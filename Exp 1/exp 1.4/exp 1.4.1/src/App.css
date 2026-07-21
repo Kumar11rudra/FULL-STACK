@@ -1,0 +1,47 @@
+.app{
+    min-height:100vh;
+    background:#f5f7fb;
+}
+
+.header{
+    background:white;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.header h1{
+    margin:0;
+    color:#2563eb;
+    font-size:32px;
+}
+
+.header p{
+    margin-top:8px;
+    color:#666;
+}
+
+.fc{
+    background:white;
+    border-radius:12px;
+    padding:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.fc-toolbar-title{
+    color:#1f2937;
+    font-size:22px;
+}
+
+.fc-button{
+    background:#2563eb !important;
+    border:none !important;
+}
+
+.fc-button:hover{
+    background:#1d4ed8 !important;
+}
+
+.fc-event{
+    cursor:pointer;
+}
