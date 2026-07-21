@@ -1,0 +1,49 @@
+.app{
+    min-height:100vh;
+    background:#f4f7fb;
+}
+
+.header{
+    background:white;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.header h1{
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.header p{
+    color:#666;
+}
+
+.stats{
+    display:flex;
+    gap:20px;
+    justify-content:center;
+    margin:30px;
+    flex-wrap:wrap;
+}
+
+.stat-card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    width:220px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.calendar{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+.event-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
