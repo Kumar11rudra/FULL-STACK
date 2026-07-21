@@ -1,0 +1,28 @@
+{
+  "name": "exp-1-4-2-performance-testing",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@vitejs/plugin-react": "^5.0.0",
+    "babel-jest": "^30.0.5",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
+    "vite": "^7.1.2"
+  }
+}
