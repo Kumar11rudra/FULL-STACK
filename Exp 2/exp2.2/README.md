@@ -14,6 +14,8 @@ The service starts at `http://localhost:8081` with 60 seed posts and three categ
 
 https://exp22.vercel.app
 
+For Git-based Vercel deployments, configure the project's Root Directory as `Exp 2/exp2.2`.
+
 ## APIs
 
 | Method | Endpoint | Purpose |
