@@ -10,6 +10,10 @@ mvn spring-boot:run
 
 The service starts at `http://localhost:8081` with 60 seed posts and three categories.
 
+## Live Output
+
+https://exp22.vercel.app
+
 ## APIs
 
 | Method | Endpoint | Purpose |
