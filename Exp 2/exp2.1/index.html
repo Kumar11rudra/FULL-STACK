@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Experiment 2.1 | REST API Playground</title>
+    <style>
+      :root { color-scheme: light; font-family: Arial, sans-serif; color: #18222f; background: #f5f7fb; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      header { background: #123047; color: #fff; padding: 28px max(24px, calc((100% - 1060px) / 2)); }
+      h1, h2, p { margin-top: 0; }
+      h1 { margin-bottom: 8px; font-size: 28px; }
+      header p { margin-bottom: 0; color: #d6e4ee; }
+      main { width: min(1060px, calc(100% - 32px)); margin: 28px auto 48px; display: grid; gap: 20px; }
+      .overview { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+      .status { color: #0d6b43; background: #dff6e9; border: 1px solid #8cd8b1; padding: 8px 12px; font-weight: 700; }
+      .grid { display: grid; grid-template-columns: 360px 1fr; gap: 20px; align-items: start; }
+      section { background: #fff; border: 1px solid #d8e0e8; border-radius: 8px; padding: 20px; }
+      h2 { font-size: 18px; margin-bottom: 16px; }
+      form { display: grid; gap: 12px; }
+      label { display: grid; gap: 6px; font-weight: 700; font-size: 14px; }
+      input, textarea { width: 100%; padding: 10px; border: 1px solid #aebdca; border-radius: 4px; font: inherit; }
+      textarea { min-height: 96px; resize: vertical; }
+      button { background: #0a6c89; color: #fff; border: 0; border-radius: 4px; padding: 10px 14px; font-weight: 700; cursor: pointer; }
+      button:hover { background: #07566f; }
+      .posts { display: grid; gap: 10px; }
+      article { border: 1px solid #d8e0e8; padding: 14px; border-radius: 6px; }
+      article h3 { margin: 0 0 8px; font-size: 16px; }
+      article p { margin-bottom: 12px; line-height: 1.45; }
+      .actions { display: flex; gap: 8px; }
+      .secondary { background: #fff; color: #0a6c89; border: 1px solid #0a6c89; }
+      .danger { background: #b42318; }
+      .empty { color: #627383; text-align: center; padding: 32px 8px; }
+      code { background: #e8eff4; padding: 3px 5px; border-radius: 3px; }
+      .endpoint { display: grid; gap: 8px; font-size: 14px; }
+      .method { display: inline-block; width: 62px; color: #08613d; font-weight: 700; }
+      footer { text-align: center; color: #627383; font-size: 13px; }
+      @media (max-width: 760px) { .overview, .grid { grid-template-columns: 1fr; } .status { justify-self: start; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Experiment 2.1: REST API Playground</h1>
+      <p>Spring Boot CRUD API demonstration for posts.</p>
+    </header>
+    <main>
+      <section class="overview">
+        <div>
+          <h2>Posts API</h2>
+          <p>This hosted playground mirrors the <code>/api/posts</code> CRUD workflow from the Spring Boot project.</p>
+        </div>
+        <span class="status">Vercel demo online</span>
+      </section>
+      <div class="grid">
+        <section>
+          <h2 id="form-heading">Create post</h2>
+          <form id="post-form">
+            <label>Title<input id="title" required minlength="3" maxlength="100" placeholder="Minimum 3 characters" /></label>
+            <label>Content<textarea id="content" required minlength="5" placeholder="Minimum 5 characters"></textarea></label>
+            <button id="submit-button" type="submit">Create post</button>
+          </form>
+        </section>
+        <section>
+          <h2>Posts</h2>
+          <div id="posts" class="posts"></div>
+        </section>
+      </div>
+      <section class="endpoint">
+        <h2>Implemented Spring Boot endpoints</h2>
+        <div><span class="method">GET</span><code>/api/posts</code></div>
+        <div><span class="method">GET</span><code>/api/posts/{id}</code></div>
+        <div><span class="method">POST</span><code>/api/posts</code></div>
+        <div><span class="method">PUT</span><code>/api/posts/{id}</code></div>
+        <div><span class="method">DELETE</span><code>/api/posts/{id}</code></div>
+      </section>
+      <footer>Experiment 2.1 | RESTful API using Spring Boot</footer>
+    </main>
+    <script>
+      const storageKey = "exp2.1-posts";
+      const form = document.querySelector("#post-form");
+      const title = document.querySelector("#title");
+      const content = document.querySelector("#content");
+      const postsElement = document.querySelector("#posts");
+      const heading = document.querySelector("#form-heading");
+      const submitButton = document.querySelector("#submit-button");
+      let editingId = null;
+      let posts = JSON.parse(localStorage.getItem(storageKey) || "[]");
+
+      function savePosts() { localStorage.setItem(storageKey, JSON.stringify(posts)); }
+      function render() {
+        postsElement.replaceChildren();
+        if (!posts.length) {
+          postsElement.innerHTML = '<p class="empty">No posts yet. Create the first one.</p>';
+          return;
+        }
+        posts.forEach((post) => {
+          const article = document.createElement("article");
+          article.innerHTML = `<h3>${escapeHtml(post.title)}</h3><p>${escapeHtml(post.content)}</p><div class="actions"><button class="secondary" data-edit="${post.id}">Edit</button><button class="danger" data-delete="${post.id}">Delete</button></div>`;
+          postsElement.append(article);
+        });
+      }
+      function escapeHtml(value) {
+        const node = document.createElement("div");
+        node.textContent = value;
+        return node.innerHTML;
+      }
+      function resetForm() {
+        form.reset(); editingId = null; heading.textContent = "Create post"; submitButton.textContent = "Create post";
+      }
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const post = { title: title.value.trim(), content: content.value.trim() };
+        if (editingId === null) {
+          post.id = Date.now(); posts.unshift(post);
+        } else {
+          posts = posts.map((item) => item.id === editingId ? { ...item, ...post } : item);
+        }
+        savePosts(); render(); resetForm();
+      });
+      postsElement.addEventListener("click", (event) => {
+        const id = Number(event.target.dataset.edit || event.target.dataset.delete);
+        if (!id) return;
+        if (event.target.dataset.delete) {
+          posts = posts.filter((post) => post.id !== id); savePosts(); render();
+          if (editingId === id) resetForm();
+          return;
+        }
+        const post = posts.find((item) => item.id === id);
+        editingId = id; title.value = post.title; content.value = post.content;
+        heading.textContent = "Update post"; submitButton.textContent = "Update post"; title.focus();
+      });
+      render();
+    </script>
+  </body>
+</html>
