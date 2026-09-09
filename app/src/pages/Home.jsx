@@ -36,6 +36,24 @@ export default function Home() {
                     link="/exp14"
                 />
 
+                <ExperimentCard
+                    title="Experiment 2.1"
+                    description="RESTful API Playground"
+                    link="https://exp21-eight.vercel.app"
+                />
+
+                <ExperimentCard
+                    title="Experiment 2.2"
+                    description="Scalable Read APIs"
+                    link="https://exp22.vercel.app"
+                />
+
+                <ExperimentCard
+                    title="Experiment 2.3"
+                    description="Secure Backend APIs"
+                    link="https://exp23-tan.vercel.app"
+                />
+
             </div>
 
         </div>
