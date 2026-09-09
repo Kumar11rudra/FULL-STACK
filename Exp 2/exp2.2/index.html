@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiment 2.2 | Scalable Read APIs</title>
+  <style>
+    :root { font-family: Arial, sans-serif; color: #162432; background: #f4f7fa; }
+    * { box-sizing: border-box; } body { margin: 0; }
+    header { background: #0b4257; color: white; padding: 30px max(24px, calc((100% - 1040px) / 2)); }
+    h1 { margin: 0 0 8px; font-size: 28px; } header p { margin: 0; color: #d5e9f1; }
+    main { width: min(1040px, calc(100% - 32px)); margin: 26px auto 48px; display: grid; gap: 18px; }
+    section { background: white; border: 1px solid #d5e0e7; border-radius: 8px; padding: 20px; }
+    h2 { margin: 0 0 14px; font-size: 18px; }
+    .features, .controls { display: flex; flex-wrap: wrap; gap: 10px; }
+    .feature { border: 1px solid #9ac5d5; color: #075772; padding: 8px 10px; border-radius: 4px; font-size: 14px; }
+    label { display: grid; gap: 6px; font-weight: 700; font-size: 14px; }
+    select { min-width: 150px; padding: 9px; border: 1px solid #aebdca; border-radius: 4px; background: white; font: inherit; }
+    .meta { color: #607687; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; } th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #dde5ea; } th { color: #426070; font-size: 13px; }
+    .pagination { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+    button { border: 0; border-radius: 4px; background: #08708e; color: white; padding: 9px 12px; font-weight: 700; cursor: pointer; } button:disabled { background: #aab8c1; cursor: not-allowed; }
+    code { background: #e7f0f4; padding: 3px 5px; border-radius: 3px; }
+    @media (max-width: 650px) { th:nth-child(3), td:nth-child(3) { display: none; } }
+  </style>
+</head>
+<body>
+  <header><h1>Experiment 2.2: Scalable Read APIs</h1><p>Pagination, sorting, caching, and optimized database reads.</p></header>
+  <main>
+    <section><h2>Implemented Backend Concepts</h2><div class="features"><span class="feature">Spring Data Pageable</span><span class="feature">Safe sorting</span><span class="feature">JOIN FETCH</span><span class="feature">Caffeine cache</span><span class="feature">Native SQL aggregation</span><span class="feature">JMeter benchmark plan</span></div></section>
+    <section>
+      <h2>Paginated Posts Demo</h2>
+      <div class="controls">
+        <label>Page size<select id="size"><option>5</option><option selected>10</option><option>20</option></select></label>
+        <label>Sort by<select id="sort"><option value="createdAt">Created date</option><option value="title">Title</option><option value="viewCount">View count</option></select></label>
+        <label>Direction<select id="direction"><option value="desc">Descending</option><option value="asc">Ascending</option></select></label>
+      </div>
+      <p id="meta" class="meta"></p><table><thead><tr><th>Title</th><th>Category</th><th>Created</th><th>Views</th></tr></thead><tbody id="rows"></tbody></table>
+      <div class="pagination"><button id="previous">Previous</button><span id="page"></span><button id="next">Next</button></div>
+    </section>
+    <section><h2>API Endpoint</h2><code>GET /api/v1/posts?page=0&amp;size=10&amp;sortBy=createdAt&amp;direction=desc</code><p class="meta">The runnable Spring Boot implementation and benchmark guide are included in the repository.</p></section>
+  </main>
+  <script>
+    const categories = ["Engineering", "Product", "News"];
+    const posts = Array.from({ length: 60 }, (_, index) => ({ id: index + 1, title: `Sample post ${index + 1}`, category: categories[index % 3], createdAt: new Date(Date.now() - (index + 1) * 3600000), viewCount: (index + 1) * 17 }));
+    const size = document.querySelector("#size"), sort = document.querySelector("#sort"), direction = document.querySelector("#direction"), rows = document.querySelector("#rows"), meta = document.querySelector("#meta"), pageLabel = document.querySelector("#page"), previous = document.querySelector("#previous"), next = document.querySelector("#next");
+    let page = 0;
+    function render() {
+      const sorted = [...posts].sort((a, b) => { const left = a[sort.value], right = b[sort.value]; const result = left > right ? 1 : left < right ? -1 : 0; return direction.value === "asc" ? result : -result; });
+      const pageSize = Number(size.value), totalPages = Math.ceil(sorted.length / pageSize), visible = sorted.slice(page * pageSize, page * pageSize + pageSize);
+      rows.innerHTML = visible.map(post => `<tr><td>${post.title}</td><td>${post.category}</td><td>${post.createdAt.toLocaleDateString()}</td><td>${post.viewCount}</td></tr>`).join("");
+      meta.textContent = `${sorted.length} records available. The backend returns only the requested page.`;
+      pageLabel.textContent = `Page ${page + 1} of ${totalPages}`; previous.disabled = page === 0; next.disabled = page >= totalPages - 1;
+    }
+    [size, sort, direction].forEach(control => control.addEventListener("change", () => { page = 0; render(); }));
+    previous.addEventListener("click", () => { page--; render(); }); next.addEventListener("click", () => { page++; render(); }); render();
+  </script>
+</body>
+</html>
