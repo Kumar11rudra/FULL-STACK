@@ -1,0 +1,38 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: exp33-social-manager
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/exp33}
+    username: ${DB_USER:exp33}
+    password: ${DB_PASSWORD:exp33_dev_password}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update # EDUCATIONAL DEMO: use Flyway/Liquibase for production schema migrations
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:localhost:9092}
+    consumer:
+      group-id: exp33-publishers
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
+app:
+  jwt:
+    # DEV ONLY: override this base64 key with a fresh random 32+ byte key before deployment.
+    secret-base64: ${APP_JWT_SECRET_BASE64:ZGV2LW9ubHktc2VjcmV0LWV4cDMzLW5vdC1mb3ItcHJvZHVjdGlvbiE=}
+  cors-origin: ${CORS_ORIGIN:http://localhost:5173}
+logging:
+  level:
+    com.example.exp33: INFO

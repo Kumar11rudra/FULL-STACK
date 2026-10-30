@@ -1,0 +1,30 @@
+### 1. Register (copy token from response into variable below)
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{"email":"owner@example.com","name":"Owner","password":"password123"}
+
+### 2. Sign in
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{"email":"owner@example.com","password":"password123"}
+
+### Replace these manually with IDs from previous responses:
+@token = PASTE_JWT_HERE
+@workspaceId = PASTE_WORKSPACE_UUID_HERE
+
+### 3. Get workspaces
+GET http://localhost:8080/api/workspaces
+Authorization: Bearer {{token}}
+
+### 4. Create scheduled demo post
+POST http://localhost:8080/api/workspaces/{{workspaceId}}/posts
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"content":"Experiment 3.3 Kafka demo post","platform":"INSTAGRAM","scheduledAt":"2030-01-01T10:00:00Z"}
+
+### 5. Analytics
+GET http://localhost:8080/api/workspaces/{{workspaceId}}/analytics
+Authorization: Bearer {{token}}
