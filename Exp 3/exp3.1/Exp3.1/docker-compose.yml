@@ -1,0 +1,8 @@
+services:
+  kafka:
+    image: apache/kafka:3.9.1
+    container_name: exp31-kafka
+    ports:
+      - "9092:9092"
+    # Official Apache image defaults to a single-node KRaft broker.
+    # This is intended for local development only.
