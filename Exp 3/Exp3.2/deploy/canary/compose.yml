@@ -1,0 +1,22 @@
+services:
+  stable:
+    image: ${STABLE_IMAGE:-exp3-2:stable}
+    environment:
+      APP_VERSION: stable
+    expose:
+      - "8080"
+  canary:
+    image: ${CANARY_IMAGE:-exp3-2:candidate}
+    environment:
+      APP_VERSION: canary
+    expose:
+      - "8080"
+  gateway:
+    image: nginx:1.27-alpine
+    depends_on:
+      - stable
+      - canary
+    ports:
+      - "127.0.0.1:8088:80"
+    volumes:
+      - ./active.conf:/etc/nginx/conf.d/default.conf:ro

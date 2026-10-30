@@ -1,0 +1,14 @@
+### Application status / deployment version
+GET http://localhost:8080/api/version
+
+### Unit and contract tested API
+GET http://localhost:8080/api/greetings/Ada
+
+### Create a note
+POST http://localhost:8080/api/notes
+Content-Type: application/json
+
+{"content":"Example note"}
+
+### Actuator health
+GET http://localhost:8080/actuator/health

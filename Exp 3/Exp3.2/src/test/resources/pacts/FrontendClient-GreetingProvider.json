@@ -1,0 +1,36 @@
+{
+  "consumer": {
+    "name": "FrontendClient"
+  },
+  "provider": {
+    "name": "GreetingProvider"
+  },
+  "interactions": [
+    {
+      "description": "a greeting for Ada",
+      "providerStates": [
+        {
+          "name": "greeting service is available"
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "path": "/api/greetings/Ada"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "message": "Hello, Ada"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  }
+}
