@@ -1,0 +1,26 @@
+### Normal event (expected: success)
+POST http://localhost:8080/api/posts/schedule
+Content-Type: application/json
+
+{"eventId":"exp31-normal-01","content":"Hello from Kafka!","failureMode":"NONE"}
+
+### Transient failure (expected: retry then success)
+POST http://localhost:8080/api/posts/schedule
+Content-Type: application/json
+
+{"eventId":"exp31-retry-01","content":"Temporary error demo","failureMode":"TRANSIENT"}
+
+### Permanent failure (expected: DLQ)
+POST http://localhost:8080/api/posts/schedule
+Content-Type: application/json
+
+{"eventId":"exp31-dlq-01","content":"Permanent error demo","failureMode":"PERMANENT"}
+
+### Duplicate event (run after Normal event)
+POST http://localhost:8080/api/posts/schedule
+Content-Type: application/json
+
+{"eventId":"exp31-normal-01","content":"This content must not overwrite the first","failureMode":"NONE"}
+
+### List successfully processed events
+GET http://localhost:8080/api/posts/processed
